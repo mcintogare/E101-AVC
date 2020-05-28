@@ -1,2 +1,3 @@
-# E101-AVC
-ENGR101 Project 3 : AVC Project
+# ENGR101 Project 3 : AVC Project
+
+## Plan :
