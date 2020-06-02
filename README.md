@@ -19,6 +19,8 @@ Thomas Yang - Software Architect (writing core code and extending functionality)
 Gareth and Rhys - Software writing, testing and documentation (debugging software and committing to
 git, writing test cases and documenting performance against milestones)
 
+## Milestone table
+
 Date | Objectives | Due date | Item due | Tasks
 --- | --- | --- | --- | ---
  test | test | test | test | test
