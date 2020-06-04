@@ -3,10 +3,10 @@
 ## Team Name: Team 2 (how creative!)
 
 ## Team Members & contact info:
-- Abigail Espejo abbie.espejo@gmail.com
-- Rhys Macdonald rhys.macdonald@protonmail.com
-- Thomas Yang yangthom@myvuw.ac.nz
-- Gareth McIntosh mcintogare@myvuw.ac.nz
+- abi6ail : Abigail Espejo abbie.espejo@gmail.com
+- Zismac : Rhys Macdonald rhys.macdonald@protonmail.com
+- MetallicHead : Thomas Yang yangthom@myvuw.ac.nz
+- mcintogare : Gareth McIntosh mcintogare@myvuw.ac.nz
 
 ## Communication tool:
 Discord
