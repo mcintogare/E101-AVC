@@ -1,12 +1,33 @@
 
 #include "robot.hpp"
 
-double offset(int* rowOfPixels, int error, int totWhitePix){
+double offset(ImagePPM cameraView){
+	// Initialise variables to help calculate the error correction 
+	double error = 0.0;
+	double totWhitePix = 0.0;
+	
+	// Create a for loop that runs 150 times for each pixel in a row
+	for(int currRow = 0; currRow < cameraView.width; currRow++){
+		/* DEVELOPER COMMENTS
+		 * 
+		 * cameraView is the picture in ppm format we just took
+		 * i is current pixel in the row
+		 * 3 so we can get all 3 RGB values */
+		int middlePix = get_pixel(cameraView, cameraView.height / 2, currRow, 3);
+		
+		// If the pixel value is greater than 250 consider the pixel as white
+		if(middlePix > 250){
+			// Add the currRow to the error so we can find the average (mid point) of the current white pixels
+			error += currRow;
+			// Add one to the total amount of white pixels
+			totWhitePix += 1;
+		}
+	}
+	
 	// Find the middle index positioing of the white pixels
 	double currMiddleWhitePix = error / totWhitePix;
 	// Take away 75 as that is half of the image width to find the error amount
-	double errorCorrection = currMiddleWhitePix - 75;
-	return errorCorrection;
+	return currMiddleWhitePix - 75;
 }
 
 
@@ -26,43 +47,9 @@ int main(){
     while(1){
 		// Take a .ppm photo of the current 150x100 pixel box ahead of the robot
 		takePicture();
-		// Initialise variables to help calculate the error correction 
-		double error = 0.0;
-		double totWhitePix = 0.0;
-		// Create an array to store all the pixels in the current row
-		int* rowOfPixels = new int[150]; 
-
-		// Create a for loop that runs 150 times for each pixel in a row
-		for(int currRow = 0; currRow < 150; currRow++){
-			/* DEVELOPER COMMENTS
-			 * 
-			 * cameraView is the picture in ppm format we just took
-			 * 50 is half of the height of the camera view image
-			 * i is current pixel in the row
-			 * 3 so we can get all 3 RGB values */
-			int middlePix = get_pixel(cameraView, 50, currRow, 3);
-			
-			// Initialise new variable to determine if it is white
-			int isWhite;
-			
-			// If the pixel value is greater than 250 consider the pixel as white
-			if(middlePix > 250){
-				isWhite = 1;
-				// Add the currRow to the error so we can find the average (mid point) of the current white pixels
-				error += currRow;
-				// Add one to the total amount of white pixels
-				totWhitePix += 1;
-				// Add to the array
-				rowOfPixels[currRow] = isWhite;
-			// The pixel is NOT white
-			} else{
-				isWhite = 0;
-				// Add to the array
-				rowOfPixels[currRow] = isWhite;
-			}
-		}
+		
 		// Save the errorCorrection given by the function offset
-		double errorCorrection = offset(rowOfPixels, error, totWhitePix);
+		double errorCorrection = offset(cameraView);
 		
 		/* DEVELOPER COMMENTS 
 		 * An important thing to note is that the initial dV is calculated via vLeft - vRight
