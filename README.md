@@ -38,3 +38,28 @@ Date | Objectives | Tasks
  18/06 | Test the challenge | Gareth & Rhys test the challenge code
  19/06 | Code due date | Submit the code
  24/06 | Report due date | Submit the report
+ 
+ ## Installation guide
+========================= INCOMPLETE INSTRUCTIONS NEEDS TO BE EDITED =========================
+These are instructions to install and run the robot
+porgram for Project 3. These instructions are for WINDOWS machines
+
+### POSSIBLE GEANY INSTALLATION GUIDE?
+
+### SFML Installation
+1) Firstly, you want to go to the following URL and install a SFML.zip file.
+Take care to ensure you download the correct version of SFML for your computer for
+your corresponding IDE (Integrated Development Environment). For example, if you
+use Visual Studio, download SFML for Visual Studio, if you have a 32 bit computer, download
+the version for 32 bit computers. Also ensure your IDE Compiler and the SFML file versions
+match! 
+
+https://www.sfml-dev.org/download/sfml/2.5.1/
+
+2) After downloading the zip file, extract all of the contents of the zip file out. The resultant
+folder should be called 'SFML...' with the ... being the version number. Rename that folder to ONLY
+'SFML'.
+
+### REQUIRES DOWNLOADING THE AVC FILES AND EXTRACTING THEM
+### MAKE FILES EDITING
+### EDIT MAKE FILES
