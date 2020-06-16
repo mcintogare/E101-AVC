@@ -46,20 +46,49 @@ porgram for Project 3. These instructions are for WINDOWS machines
 
 ### POSSIBLE GEANY INSTALLATION GUIDE?
 
-### SFML Installation
-1) Firstly, you want to go to the following URL and install a SFML.zip file.
-Take care to ensure you download the correct version of SFML for your computer for
-your corresponding IDE (Integrated Development Environment). For example, if you
-use Visual Studio, download SFML for Visual Studio, if you have a 32 bit computer, download
-the version for 32 bit computers. Also ensure your IDE Compiler and the SFML file versions
-match! 
 
-https://www.sfml-dev.org/download/sfml/2.5.1/
+#### Installing SFML
+1) Follow this link https://www.sfml-dev.org/download/sfml/2.5.1/ and at the bottom of the page you will see two MinGW versions; 32 bit and 64 bit. Make sure you download the version that corresponds with your MinGW version.
 
-2) After downloading the zip file, extract all of the contents of the zip file out. The resultant
-folder should be called 'SFML...' with the ... being the version number. Rename that folder to ONLY
-'SFML'.
+2) Once the SFML zip download is complete, right click the zip file and click 'Extract all'. A window should pop up asking you where you want to extract the files, make sure you choose your C: drive 
 
-### REQUIRES DOWNLOADING THE AVC FILES AND EXTRACTING THEM
-### MAKE FILES EDITING
-### EDIT MAKE FILES
+3) Once the extraction is complete, you will find in your C: drive a folder called 'SFML<...>' with the <...> being the version number. Rename the folder to just 'SFML'.
+
+#### Installing the Project Files
+
+1) Now head to the ENGR101 Project 3 page following this link https://ecs.wgtn.ac.nz/Courses/ENGR101_2020T1/Project3 and scroll all the way down to the bottom of the page where you will see a section of Attachments. Click 'AVC_Win10.zip' and this will initiate a download of the zip file.
+
+2) Extract this zip file into any location you would like. Make sure you choose a reasonable and accessible location as these are the basis files of the project.
+
+3) After this process has finished, you will see the folders 'AVC_robot' and 'AVC_server' in the chosen location of your extraction.
+
+4) Now go ahead and open Geany. At the top left of the Geany window there should be an icon with a folder that says 'Open'. Click this and navigate to the 'AVC_robot' folder. Inside this folder you want to open 'makefile' AND 'robot.cpp'
+
+#### Editing the AVC_robot makefile
+
+1) Make sure you are viewing 'makefile'. Highlight all of the text with "Ctrl + A" and paste the following text:
+
+INCLUDE = -I C:\\Users\Abigail\SFML\include
+LIBS = -L C:\\Users\Abigail\SFML\lib
+robot.exe: robot.o 
+	g++ $(LIBS) -o robot robot.o -lsfml-window  -lsfml-graphics -lsfml-system -lsfml-network 
+robot.o: robot.cpp 
+	g++  -c $(INCLUDE) robot.cpp
+
+2) Now we need to change the first and second lines of the makefile to YOUR specfic file path. In Libraries, head to your C: drive, go into the SFML folder and then click the include folder too. Copy the file path by clicking on the top bar and then "Ctrl + C".
+
+3) Now open Geany, make sure you are viewing the makefile that you had opened and paste the file path so that the FIRST line reads: **INCLUDE = -I (insert file path here)**
+
+ It should look like: **INCLUDE = -I C:\\SFML\include**
+ 
+4) Time to do the same but with the second line! In Libraries, head to your C: drive, go into the SFML folder and then the lib folder. Copy the file path by clicking on the top bar and then "Ctrl + C".
+
+5) Open Geany, in the makefile paste the file path in the SECOND line so that it reads: **LIBS = -L (insert file path here)**
+
+ It should look like: **INCLUDE = -I C:\\SFML\lib**
+
+#### Editing the AVC_robot makefile
+
+
+
+
