@@ -45,9 +45,9 @@ These are instructions to install and run the robot
 porgram for Project 3. These instructions are for WINDOWS machines
 
 #### Installing MinGW C++ compiler
-1) Download the MinGW C++ cpmpiler [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download) The download should start automatically.
+1) Download the MinGW C++ compiler [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download). The download should start automatically.
 
-2) When the download is finished, at the bottom left you will see that **mingw-get-setup.exe** has been downloaded. Click on it.
+2) When the download is finished, at the bottom left you will see that **mingw-get-setup.exe** has been downloaded. Open it.
 
 3) A window will pop up asking if you want to install, click **Install**.
 
