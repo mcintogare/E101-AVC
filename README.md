@@ -45,21 +45,21 @@ These are instructions to install and run the robot
 porgram for Project 3. These instructions are for WINDOWS machines
 
 #### Installing MinGW C++ compiler
-1) Follow this link [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download) to download the MinGW C++ compiler. The download should start automatically.
+1) Download the MinGW C++ cpmpiler [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download) The download should start automatically.
 
 2) When the download is finished, at the bottom left you will see that **mingw-get-setup.exe** has been downloaded. Click on it.
 
 3) A window will pop up asking if you want to install, click **Install**.
 
-4) Next it will ask you where you want to install MinGW, with C:\\ being the given option, this is fine so click **Continue**.
+4) Next it will ask you where you want to install MinGW, with your `C:` drive being the given option, this is fine so click **Continue**.
 
 5) After the installation has finished (it will say 100%) then click **Continue** to be prompted to the next window.
 
 6) A pop-up window will appear. Make sure that you selected all the check-boxes under the **Package** tab. e.g. mingw32-base, mingw32-gcc=g++, msys-base and so on.
 
-7) At the top left corner of the window click **Installation > Apply Changes**. Wait for the process to complete. once you see successful installation message close the window.
+7) At the top left corner of the window click **Installation > Apply Changes**. Wait for the process to complete. Once you see the successful installation message, close the window.
 
-8) Head to the MinGW file that was installed in your C: drive. You want to find the `bin` folder and copy the file path to that folder.
+8) Head to the MinGW file that was installed in your `C:` drive. You want to find the `bin` folder and copy the file path to that folder.
 
 9) Now open your **Control Panel** and click **System**, then **Advanced system settings**.
 
