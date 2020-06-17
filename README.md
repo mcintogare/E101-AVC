@@ -44,8 +44,28 @@ Date | Objectives | Tasks
 These are instructions to install and run the robot
 porgram for Project 3. These instructions are for WINDOWS machines
 
-### POSSIBLE GEANY INSTALLATION GUIDE?
+#### Installing MinGW C++ compiler
+1) Follow this link [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download) to download the MinGW C++ compiler. The download should start automatically.
 
+2) When the download is finished, at the bottom left you will see that **mingw-get-setup.exe** has been downloaded. Click on it.
+
+3) A window will pop up asking if you want to install, click **Install**.
+
+4) Next it will ask you where you want to install MinGW, with C:\\ being the given option, this is fine so click **Continue**.
+
+5) After the installation has finished (it will say 100%) then click **Continue** to be prompted to the next window.
+
+6) A pop-up window will appear. Make sure that you selected all the check-boxes under the **Package** tab. e.g. mingw32-base, mingw32-gcc=g++, msys-base and so on.
+
+7) At the top left corner of the window click **Installation > Apply Changes**. Wait for the process to complete. once you see successful installation message close the window.
+
+8) Head to the MinGW file that was installed in your C: drive. You want to find the `bin` folder and copy the file path to that folder.
+
+9) Now open your **Control Panel** and click **System**, then **Advanced system settings**.
+
+10) Click **Environment Variables**. In the section System Variables, find the `PATH` environment variable and select it, click **Edit**. If the `PATH` environment variable does not exist, click **New**.
+
+11) In the **Edit System Variable** (or **New System Variable**) window, specify the value of the `PATH` environment variable. Paste the path value. Click OK. Close all remaining windows by clicking OK.
 
 #### Installing SFML
 1) Follow this link https://www.sfml-dev.org/download/sfml/2.5.1/ and at the bottom of the page you will see two MinGW versions; 32 bit and 64 bit. Make sure you download the version that corresponds with your MinGW version.
@@ -58,15 +78,13 @@ porgram for Project 3. These instructions are for WINDOWS machines
 
 1) Now head to the ENGR101 Project 3 page following this link https://ecs.wgtn.ac.nz/Courses/ENGR101_2020T1/Project3 and scroll all the way down to the bottom of the page where you will see a section of Attachments. Click 'AVC_Win10.zip' and this will initiate a download of the zip file.
 
-2) Extract this zip file into any location you would like. Make sure you choose a reasonable and accessible location as these are the basis files of the project.
-
-3) After this process has finished, you will see the folders 'AVC_robot' and 'AVC_server' in the chosen location of your extraction.
-
-4) Now go ahead and open Geany. At the top left of the Geany window there should be an icon with a folder that says 'Open'. Click this and navigate to the 'AVC_robot' folder. Inside this folder you want to open 'makefile' AND 'robot.cpp'
+2) Extract this zip file into any location you would like. Make sure you choose a reasonable and accessible location as these are the basis files of the project. After this process has finished, you will see the folders 'AVC_robot' and 'AVC_server' in the chosen location of your extraction.
 
 #### Editing the AVC_robot makefile
 
-1) Make sure you are viewing 'makefile'. Highlight all of the text with "Ctrl + A" and paste the following text:
+1) Open Geany. At the top left of the Geany window there should be an icon with a folder that says 'Open'. Click this and navigate to the **AVC_robot** folder. Inside this folder you want to open **makefile**
+
+2) In the makefile, highlight all of the text with **Ctrl + A** and paste the following text:
 
 ```
 INCLUDE = -I C:\\Users\Abigail\SFML\include
@@ -77,29 +95,49 @@ robot.o: robot.cpp
 	g++  -c $(INCLUDE) robot.cpp
 ```
 
-2) Now we need to change the first and second lines of the makefile to YOUR specfic file path. In Libraries, head to your C: drive, go into the SFML folder and then click the include folder too. Copy the file path by clicking on the bar showing the file path (it should automatically highlight when clicked) and then hit "Ctrl + C".
+2) Now we need to change the first and second lines of the makefile to YOUR specfic file path for certain folders. In Libraries, head to your C: drive, go into the SFML folder, and then go into the include folder too. 
 
-3) Now open Geany, make sure you are viewing the makefile that you had opened and paste the file path so that the FIRST line reads:
+3) Copy the file path by clicking on the top bar that shows the file directory (it should automatically highlight when clicked) and then press **Ctrl + C**.
 
-> INCLUDE = -I (insert file path here)
+3) Go back to Geany where you had opened the makefile and paste the file path so that the **FIRST** line reads something similar to:
 
-so that it should look something like:
-
-> INCLUDE = -I C:\\SFML\include
+``` INCLUDE = -I C:\\SFML\include ```
  
-4) Time to do the same but with the second line! In Libraries, head to your C: drive, go into the SFML folder and then the lib folder. Copy the file path by clicking on the top bar and then "Ctrl + C".
+4) For the second line it is a similar process. Again, head to your C: drive, go into the SFML folder and then the lib folder. Copy the file path by clicking the file directory on the top bar and pressing **Ctrl + C**.
 
-5) Open Geany, in the makefile paste the file path in the SECOND line so that it reads:
+5) Open Geany, in the makefile paste the file path in the **SECOND** line reads something similar to:
 
-> LIBS = -L (insert file path here)
+```INCLUDE = -I C:\\SFML\lib ```
 
-so that it should look something like:
+6) Lastly, save the makefile by pressing **Ctrl + S** but DON'T close it.
 
-> INCLUDE = -I C:\\SFML\lib</p>
+#### Editing the AVC_server makefile
 
-#### Editing the AVC_robot makefile
+1) Great! We're going to do pretty much the same thing but with the **server** makefile. At the top left of the Geany window click 'Open', head to to the **AVC_server** folder and click **makefile**. 
 
+2) In the **AVC_server** makefile, highlight all of the text with **Ctrl + A** and paste the following text:
 
+```
+INCLUDE = -I C:\\Users\Abigail\SFML\include
+LIBS = -L C:\\Users\Abigail\SFML\lib
+server3.exe: server3.o 
+	g++ $(LIBS) -o server3 server3.o -lsfml-window  -lsfml-graphics -lsfml-system -lsfml-network 
+server3.o: server3.cpp 
+	g++  -c $(INCLUDE) server3.cpp
+```
 
+3) Now we just need to change those file paths on the first and second line. So for the first line, head to your AVC_robot makefile and copy the first line, go back to the in the AVC_server makefile and highlight the first line, then paste the copied text.
+
+4) Go back to the AVC_robot makefile, highlight all of the second line, go back to the AVC_server makefile and highlight the second line, then paste the copied text. 
+
+#### Changing the build command
+
+1) Open Geany and you will see an icon with the label **Build**, click the drop down arrow next to it.
+
+2) Click **Set build commands**
+
+3) Under **Independent Commands**, your **Make** command should be: ```mingw32-make``` and **Make Custom Target...** should be: ```make```
+
+4) After making the necessary changes hit OK.
 
 
