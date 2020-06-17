@@ -68,26 +68,37 @@ porgram for Project 3. These instructions are for WINDOWS machines
 
 1) Make sure you are viewing 'makefile'. Highlight all of the text with "Ctrl + A" and paste the following text:
 
+```
 INCLUDE = -I C:\\Users\Abigail\SFML\include
 LIBS = -L C:\\Users\Abigail\SFML\lib
 robot.exe: robot.o 
 	g++ $(LIBS) -o robot robot.o -lsfml-window  -lsfml-graphics -lsfml-system -lsfml-network 
 robot.o: robot.cpp 
 	g++  -c $(INCLUDE) robot.cpp
+```
 
-2) Now we need to change the first and second lines of the makefile to YOUR specfic file path. In Libraries, head to your C: drive, go into the SFML folder and then click the include folder too. Copy the file path by clicking on the top bar and then "Ctrl + C".
+2) Now we need to change the first and second lines of the makefile to YOUR specfic file path. In Libraries, head to your C: drive, go into the SFML folder and then click the include folder too. Copy the file path by clicking on the bar showing the file path (it should automatically highlight when clicked) and then hit "Ctrl + C".
 
-3) Now open Geany, make sure you are viewing the makefile that you had opened and paste the file path so that the FIRST line reads: **INCLUDE = -I (insert file path here)**
+3) Now open Geany, make sure you are viewing the makefile that you had opened and paste the file path so that the FIRST line reads:
 
- It should look like: **INCLUDE = -I C:\\SFML\include**
+> INCLUDE = -I (insert file path here)
+
+so that it should look something like:
+
+> INCLUDE = -I C:\\SFML\include
  
 4) Time to do the same but with the second line! In Libraries, head to your C: drive, go into the SFML folder and then the lib folder. Copy the file path by clicking on the top bar and then "Ctrl + C".
 
-5) Open Geany, in the makefile paste the file path in the SECOND line so that it reads: **LIBS = -L (insert file path here)**
+5) Open Geany, in the makefile paste the file path in the SECOND line so that it reads:
 
- It should look like: **INCLUDE = -I C:\\SFML\lib**
+> LIBS = -L (insert file path here)
+
+so that it should look something like:
+
+> INCLUDE = -I C:\\SFML\lib</p>
 
 #### Editing the AVC_robot makefile
+
 
 
 
