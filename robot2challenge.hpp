@@ -140,7 +140,7 @@ double RobotChallenge::offset(ImagePPM cameraView, int depth){
 	double distThreshold = cameraView.height / 2;
 	bool redWithinDistThreshold = false;
 	
-	int kp0 = 6;
+	int kp0 = 6.8;
 	
 	std::set<double> angleSet;
 	std::set<double>::reverse_iterator it;
@@ -160,7 +160,7 @@ double RobotChallenge::offset(ImagePPM cameraView, int depth){
 			}
 		}
 		
-		this->kp = (redWithinDistThreshold) ? kp0 * 1.5 : kp0;
+		this->kp = (redWithinDistThreshold) ? kp0 * 2 : kp0;
 		
 		double prevAngle = *angleSet.rbegin();
 		for (it = angleSet.rbegin(); it != angleSet.rend(); it++) {
