@@ -73,20 +73,20 @@ int Robot::brightness(ImagePPM cameraView, int pixIndex, int depth) {
  * bottom-left-hand corner of the FOV
  * @param cameraView - an ImagePPM object representing the robot's
  *                     full FOV
- * @param row - the row of the red pixel
- * @param col - the column of the red pixel
+ * @param i - the row of the red pixel
+ * @param j - the column of the red pixel
  * @returns the angle
  */
-double angleFromLeft(ImagePPM cameraView, int row, int col) {
-	int relativeRow = cameraView.height;
-	int relativeCol = (cameraView.width - 1) / 2;
+double angleFromLeft(ImagePPM cameraView, int i, int j) {
+	int i0 = cameraView.height;
+	int j0 = (cameraView.width - 1) / 2;
 	
-	double rowDist = relativeRow - row;
-	double colDist = col - relativeCol;
+	double di = i0 - i;
+	double dj = j - j0;
 	
-	if (colDist == 0) return (M_PI / 2);
+	if (dj == 0) return (M_PI / 2);
 	
-	double alpha = atan(rowDist / colDist);
+	double alpha = atan(di / dj);
 	return (alpha >= 0) ? M_PI - alpha : -alpha;
 }
 
@@ -106,6 +106,14 @@ double getTotFOVWhitePix(ImagePPM cameraView) {
 		}
 	}
 	return totFOVWhitePix;
+}
+
+double dist(int i, int j) {
+	int i0 = cameraView.height;
+	int j0 = (cameraView.width - 1) / 2;
+	double di = i0 - i;
+	double dj = j0 - j;
+	return sqrt(di * di + dj * dj);
 }
 
 /**
@@ -128,9 +136,14 @@ double Robot::offset(ImagePPM cameraView, int depth){
 	double error = 0.0;
 	double totMatchingPix = 0.0;
 	double totFOVWhitePix = getTotFOVWhitePix(cameraView);
-	double angleThreshold = 0.1;
+	double angleThreshold = 0.3;
+	double distThreshold = cameraView.height / 2;
+	bool redWithinDistThreshold = false;
+	
+	int kp0 = 6;
 	
 	std::set<double> angleSet;
+	std::set<double>::reverse_iterator it;
 	angleSet.insert(0);
 	angleSet.insert(M_PI);
 	
@@ -138,18 +151,22 @@ double Robot::offset(ImagePPM cameraView, int depth){
 	int totalPixCount = 2 * depth + cameraView.width - 3;
 	
 	if (totFOVWhitePix == 0) { // If no white line exists within FOV
-		this->kp = 3.5;
 		for (int i = 0; i < cameraView.height; i++) {
 			for (int j = 0; j < cameraView.width; j++) {
 				if (get_pixel(cameraView, i, j, 0) == 255) {
 					angleSet.insert(angleFromLeft(cameraView, i, j));
+					if (dist(i, j) < distThreshold) redWithinDistThreshold = true;
 				}
 			}
 		}
 		
-		double prevAngle = *angleSet.begin();
-		for (double angle : angleSet) {
-			if (angle - prevAngle > angleThreshold) {
+		this->kp = (redWithinDistThreshold) ? kp0 * 1.5 : kp0;
+		
+		double prevAngle = *angleSet.rbegin();
+		for (it = angleSet.rbegin(); it != angleSet.rend(); it++) {
+		//  double angle : angleSet) {
+			double angle = *it;
+			if (prevAngle - angle > angleThreshold) {
 				double targetAngle = (angle + prevAngle) / 2;
 				std::cout<<"Previous angle: "<<prevAngle<<std::endl;
 				std::cout<<"Current angle: "<<angle<<std::endl;
@@ -159,11 +176,12 @@ double Robot::offset(ImagePPM cameraView, int depth){
 			}
 			prevAngle = angle;
 		}
-		std::cout<<"HEEEEEEEEEEEEEEELP"<<std::endl;
+		std::cout<<"Can't find gap!"<<std::endl;
 		
 		// Return largest possible offset if no significant gaps are found, to make the robot turn rapidly
-		return M_PI;
+		return -3 * M_PI / 4;
 	} else { // If white line does exist within FOV
+		// ALGORITHM FOR CORE AND COMPLETION
 		this->kp = 0.1;
 		for(int pixIndex = 0; pixIndex < totalPixCount; pixIndex++){
 			int currPixBrightness = brightness(cameraView, pixIndex, depth);
@@ -205,16 +223,19 @@ void Robot::runRobot() {
 		std::cout<<"Error correction: "<<errorCorrection<<std::endl;
 		std::cout<<"kp: "<<kp<<std::endl;
 		// Caculate the difference between the left and right speeds
-		dV = kp * errorCorrection * errorCorrection;
+		//dV = kp * errorCorrection * errorCorrection * errorCorrection;
+		if (errorCorrection == 0) {
+			dV = 0;
+		} else {
+			dV = kp * errorCorrection * errorCorrection * errorCorrection / abs(errorCorrection);
+		}
 		// Change the speeds based off the difference
 		changevRight(dV);
 		changevLeft(dV);
 		// Set the motors to the same speed
 		double vLeft = getvLeft();
 		double vRight = getvRight();
-		std::cout<<"### 1"<<std::endl;
 		setMotors(vLeft,vRight);
-		std::cout<<"### 2"<<std::endl;
 		std::cout<<" vLeft="<<vLeft<<" vRight="<<vRight<<std::endl;
 		usleep(10000);
 	} //while
