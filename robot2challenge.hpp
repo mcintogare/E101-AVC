@@ -2,38 +2,38 @@
 #include <math.h>
 #include <set>
 
-class Robot {
+class RobotChallenge {
 
 public:
 	double vLeft, vRight, v_go;
 	double kp = 0.1;
 	
-	Robot(double velocityLeft, double velocityRight, double goSpeed){
+	RobotChallenge(double velocityLeft, double velocityRight, double goSpeed){
 		vLeft = velocityLeft;
 		vRight = velocityRight;
 		v_go = goSpeed;
 	}
 	
-	double getvLeft(){ return Robot::vLeft; }
-	double getvRight(){ return Robot::vRight; }
-	double getvGo(){ return Robot::v_go; }
+	double getvLeft(){ return RobotChallenge::vLeft; }
+	double getvRight(){ return RobotChallenge::vRight; }
+	double getvGo(){ return RobotChallenge::v_go; }
 	
 	void changevLeft(double dV){
 		double v_go = getvGo();
-		Robot::vLeft = v_go + dV;
-		std::cout<<"left "<<Robot::vLeft<<std::endl;
+		RobotChallenge::vLeft = v_go + dV;
+		std::cout<<"left "<<RobotChallenge::vLeft<<std::endl;
 	}
 	
 	void changevRight(double dV){
 		double v_go = getvGo();
-		Robot::vRight = v_go - dV;
-		std::cout<<"right "<<Robot::vRight<<std::endl;
+		RobotChallenge::vRight = v_go - dV;
+		std::cout<<"right "<<RobotChallenge::vRight<<std::endl;
 	}
 	
 	int brightness(ImagePPM cameraView, int pixIndex, int depth);
 	double offset(ImagePPM cameraView, int depth);
 	
-	void runRobot();
+	void runRobotChallenge();
 };
 
 
@@ -49,7 +49,7 @@ public:
  *                the robot's actual FOV is determined by this
  * @returns the brightness of the specified pixel
  */
-int Robot::brightness(ImagePPM cameraView, int pixIndex, int depth) {
+int RobotChallenge::brightness(ImagePPM cameraView, int pixIndex, int depth) {
 	// Total number of pixels that will be analysed
 	int totalPixCount = 2 * depth + cameraView.width - 3;
 
@@ -131,7 +131,7 @@ double dist(int i, int j) {
  *                the robot's actual FOV is determined by this
  * @returns the aforementioned distance/offset
  */
-double Robot::offset(ImagePPM cameraView, int depth){
+double RobotChallenge::offset(ImagePPM cameraView, int depth){
 	// Initialise variables to help calculate the error correction 
 	double error = 0.0;
 	double totMatchingPix = 0.0;
@@ -202,7 +202,7 @@ double Robot::offset(ImagePPM cameraView, int depth){
 	}
 }
 
-void Robot::runRobot() {
+void RobotChallenge::runRobotChallenge() {
 	// Create an if statement to check if robot is initialised
 	if (initClientRobot() !=0){
 		std::cout<<" Error initializing robot"<<std::endl;
@@ -240,6 +240,3 @@ void Robot::runRobot() {
 		usleep(10000);
 	} //while
 }
-
-
-
